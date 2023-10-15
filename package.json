@@ -1,0 +1,30 @@
+{
+  "name": "zksql",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bin/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "bin": {
+    "main": "./bin/main.js"
+  },
+  "dependencies": {
+    "@aleohq/sdk": "^0.6.2",
+    "axios": "^1.5.1",
+    "bech32": "^2.0.0",
+    "dotenv": "^16.3.1",
+    "jsdoc": "^4.0.2",
+    "node-fetch": "^3.3.2",
+    "node-sql-parser": "^4.11.0",
+    "request": "^2.88.2",
+    "yargs": "13.2"
+  },
+  "type": "module",
+  "devDependencies": {
+    "@types/mime": "^3.0.2",
+    "@types/node": "^20.8.6"
+  }
+}
