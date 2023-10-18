@@ -19,3 +19,10 @@ VALUES \
     'aleo1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq3ljyzc'\
   )"
 ```
+
+## Left to implement
+
+- CREATE TABLE
+- SELECT
+- DELETE
+- JOIN
