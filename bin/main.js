@@ -1,5 +1,5 @@
 import yargs from "yargs/yargs.js";
-import { execute_query } from "../lib/zksql.js";
+import { execute_query } from "../lib/zksql/queries/index.js";
 
 import { Account } from "@aleohq/sdk";
 import dotenv from 'dotenv';
