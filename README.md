@@ -20,9 +20,14 @@ VALUES \
   )"
 ```
 
-## Left to implement
+## Implemented
 
 - CREATE TABLE
+- INSERT
+
+## Left to implement
+
 - SELECT
 - DELETE
 - JOIN
+- UPDATE
