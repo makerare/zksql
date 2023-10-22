@@ -1,7 +1,13 @@
 import yargs from "yargs/yargs.js";
 import { execute_query } from "../lib/zksql/queries/index.js";
 
-import { Account } from "@aleohq/sdk";
+import {
+  Account,
+  AleoKeyProvider,
+  AleoNetworkClient,
+  NetworkRecordProvider,
+  ProgramManager,
+} from "@aleohq/sdk";
 import dotenv from 'dotenv';
 import path from 'path';
 
@@ -9,16 +15,33 @@ dotenv.config();
 dotenv.config({ path: path.resolve(process.cwd(), '.env.local') });
 
 const load_context = (argv) => {
-  const context = {};
-  context.endpoint = argv?.endpoint ? argv.endpoint : process.env.NETWORK_API_URL;
-
+  let context = {};
+  const endpoint = argv?.endpoint ? argv.endpoint : process.env.NETWORK_API_URL;
+  context.endpoint = endpoint;
   try {
-    context.account =
+    const account =
       argv?.privateKey ?
         new Account({ privateKey: argv.privateKey })
         : process.env.PRIVATE_KEY ?
           new Account({ privateKey: process.env.PRIVATE_KEY })
           : null;
+
+    const keyProvider = new AleoKeyProvider();
+    keyProvider.useCache(true);
+    const networkClient = new AleoNetworkClient(endpoint);
+    const recordProvider = new NetworkRecordProvider(account, networkClient);
+
+    const programManager = new ProgramManager(endpoint, keyProvider, recordProvider);
+    programManager.setAccount(account)
+
+    context = {
+      ...context,
+      account,
+      keyProvider,
+      networkClient,
+      recordProvider,
+    };
+
   } catch (e) {
     throw new Error("Failed to load private key.")
   }
