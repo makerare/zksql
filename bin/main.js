@@ -3,8 +3,10 @@ import { execute_query } from "../lib/zksql/queries/index.js";
 
 import { Account } from "@aleohq/sdk";
 import dotenv from 'dotenv';
-dotenv.config();
+import path from 'path';
 
+dotenv.config();
+dotenv.config({ path: path.resolve(process.cwd(), '.env.local') });
 
 const load_context = (argv) => {
   const context = {};
