@@ -1,5 +1,8 @@
 import yargs from "yargs/yargs.js";
-import { execute_query } from "../lib/zksql/queries/index.js";
+import {
+  execute_query,
+  retrieve_query_result,
+} from "../lib/zksql/queries/index.js";
 
 import {
   Account,
@@ -11,8 +14,10 @@ import {
 import dotenv from 'dotenv';
 import path from 'path';
 
+
 dotenv.config();
 dotenv.config({ path: path.resolve(process.cwd(), '.env.local') });
+
 
 const load_context = (argv) => {
   let context = {};
@@ -40,6 +45,7 @@ const load_context = (argv) => {
       keyProvider,
       networkClient,
       recordProvider,
+      programManager
     };
 
   } catch (e) {
@@ -52,12 +58,15 @@ const load_context = (argv) => {
 }
 
 
+
 const execute_action = "execute";
+const result_action = "result";
 const help_message = `
 Usage: zksql <action>
 
-Action to perform:
-- ${execute_action}: execute a zkSQL query.
+Available actions:
+- '${execute_action}': execute a zkSQL query.
+- '${result_action}': retrieve result from a zkSQL query.
 `;
 
 const default_entrypoint = (argv) => {
@@ -66,11 +75,13 @@ const default_entrypoint = (argv) => {
   }
 };
 
+
 const execute_arg_name = "query";
 const execute_cmd_pattern = `${execute_action} <${execute_arg_name}>`;
-const help_execute_message = `
-Usage: zksql ${execute_action} <${execute_arg_name}> --privateKey <privateKey>
-${execute_action} <${execute_arg_name}> execute the query.
+const execute_help_message = `
+Execute a zkSQL query.
+
+Usage: zksql ${execute_cmd_pattern} --privateKey <privateKey>
 `;
 
 const execute_entrypoint = async ({ argv }) => {
@@ -78,7 +89,7 @@ const execute_entrypoint = async ({ argv }) => {
   const query = argv?._?.[1];
 
   if (!query) {
-    return console.log(help_execute_message);
+    return console.log(execute_help_message);
   }
   try {
     await execute_query(query);
@@ -88,6 +99,28 @@ const execute_entrypoint = async ({ argv }) => {
 };
 
 
+const result_arg_name = "requestId";
+const result_cmd_pattern = `${result_action} <${result_arg_name}>`;
+const result_help_message = `
+Retrieve result from a zkSQL query.
+
+Usage: zksql ${result_cmd_pattern} --privateKey <privateKey>
+`;
+
+const result_entrypoint = async ({ argv }) => {
+  load_context(argv);
+  const query_id = argv?._?.[1];
+
+  if (!query_id) {
+    return console.log(result_help_message);
+  }
+  try {
+    await retrieve_query_result(query_id);
+  } catch (e) {
+    console.log(e)
+  }
+};
+
 const actions = [
   execute_action,
 ];
@@ -96,8 +129,13 @@ const argv = yargs(process.argv.slice(2))
   .command('$0', 'help', () => { }, default_entrypoint)
   .command(
     execute_cmd_pattern,
-    help_execute_message,
+    execute_help_message,
     execute_entrypoint
+  )
+  .command(
+    result_cmd_pattern,
+    result_help_message,
+    result_entrypoint
   )
   .argv;
 

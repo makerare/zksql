@@ -10,14 +10,14 @@ npm install
 
 ```bash
 node . execute "\
-INSERT INTO disperse_multi_method \
-  (addr,nbr,fld) \
+INSERT INTO first_table \
+  (column1, column2) \
 VALUES \
   (\
-    'aleo1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq3ljyzc',\
-    'aleo1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq3ljyzc',\
-    'aleo1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq3ljyzc'\
-  )"
+    1,\
+    true
+  )\
+"
 ```
 
 ## Implemented
