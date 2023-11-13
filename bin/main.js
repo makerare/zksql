@@ -30,6 +30,12 @@ const load_context = (argv) => {
         : process.env.PRIVATE_KEY ?
           new Account({ privateKey: process.env.PRIVATE_KEY })
           : null;
+    const verbosity =
+      argv?.verbosity ?
+        Number(argv.verbosity)
+        : process.env.VERBOSITY ?
+          Number(process.env.VERBOSITY)
+          : 0;
 
     const keyProvider = new AleoKeyProvider();
     keyProvider.useCache(true);
@@ -42,6 +48,7 @@ const load_context = (argv) => {
     context = {
       ...context,
       account,
+      verbosity,
       keyProvider,
       networkClient,
       recordProvider,
@@ -62,7 +69,7 @@ const load_context = (argv) => {
 const execute_action = "execute";
 const result_action = "result";
 const help_message = `
-Usage: zksql <action>
+Usage: zksql <action> --privateKey <privateKey> --verbosity <verbosity: 0 (default), 1>
 
 Available actions:
 - '${execute_action}': execute a zkSQL query.
@@ -81,7 +88,7 @@ const execute_cmd_pattern = `${execute_action} <${execute_arg_name}>`;
 const execute_help_message = `
 Execute a zkSQL query.
 
-Usage: zksql ${execute_cmd_pattern} --privateKey <privateKey>
+Usage: zksql ${execute_cmd_pattern} --privateKey <privateKey> --verbosity <verbosity: 0 (default), 1>
 `;
 
 const execute_entrypoint = async ({ argv }) => {
@@ -104,7 +111,7 @@ const result_cmd_pattern = `${result_action} <${result_arg_name}>`;
 const result_help_message = `
 Retrieve result from a zkSQL query.
 
-Usage: zksql ${result_cmd_pattern} --privateKey <privateKey>
+Usage: zksql ${result_cmd_pattern} --privateKey <privateKey> --verbosity <verbosity: 0 (default), 1>
 `;
 
 const result_entrypoint = async ({ argv }) => {
