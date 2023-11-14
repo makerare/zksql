@@ -2,6 +2,7 @@ import yargs from "yargs/yargs.js";
 import {
   execute_query,
   retrieve_query_result,
+  display_error
 } from "../lib/zksql/queries/index.js";
 
 import {
@@ -35,7 +36,7 @@ const load_context = (argv) => {
         Number(argv.verbosity)
         : process.env.VERBOSITY ?
           Number(process.env.VERBOSITY)
-          : 0;
+          : 1;
 
     const keyProvider = new AleoKeyProvider();
     keyProvider.useCache(true);
@@ -64,12 +65,12 @@ const load_context = (argv) => {
   global.context = context;
 }
 
-
+const optional_args_pattern = `--privateKey <privateKey> --verbosity <verbosity: 0, 1 (default), 2>`;
 
 const execute_action = "execute";
 const result_action = "result";
 const help_message = `
-Usage: zksql <action> --privateKey <privateKey> --verbosity <verbosity: 0 (default), 1>
+Usage: zksql <action> ${optional_args_pattern}
 
 Available actions:
 - '${execute_action}': execute a zkSQL query.
@@ -88,7 +89,7 @@ const execute_cmd_pattern = `${execute_action} <${execute_arg_name}>`;
 const execute_help_message = `
 Execute a zkSQL query.
 
-Usage: zksql ${execute_cmd_pattern} --privateKey <privateKey> --verbosity <verbosity: 0 (default), 1>
+Usage: zksql ${execute_cmd_pattern} ${optional_args_pattern}
 `;
 
 const execute_entrypoint = async ({ argv }) => {
@@ -111,7 +112,7 @@ const result_cmd_pattern = `${result_action} <${result_arg_name}>`;
 const result_help_message = `
 Retrieve result from a zkSQL query.
 
-Usage: zksql ${result_cmd_pattern} --privateKey <privateKey> --verbosity <verbosity: 0 (default), 1>
+Usage: zksql ${result_cmd_pattern} ${optional_args_pattern}
 `;
 
 const result_entrypoint = async ({ argv }) => {
@@ -124,7 +125,7 @@ const result_entrypoint = async ({ argv }) => {
   try {
     await retrieve_query_result(query_id);
   } catch (e) {
-    console.log(e)
+    display_error(e);
   }
 };
 
