@@ -9,7 +9,7 @@ npm install
 ## Environment variables
 
 Duplicate `.env.local.example` file and rename it to `.env.local`.
-Edit it to add your Aleo private key.
+Update it with your own Aleo private key.
 
 ## Create Table
 
