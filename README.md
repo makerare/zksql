@@ -6,6 +6,20 @@
 npm install
 ```
 
+## Environment variables
+
+Duplicate `.env.local.example` file and rename it to `.env.local`.
+Edit it to add your Aleo private key.
+
+## Create Table
+
+```bash
+node . execute "\
+CREATE TABLE first_table \
+  (column1 INT, column2 BOOLEAN) \
+"
+```
+
 ## Insert row
 
 ```bash
