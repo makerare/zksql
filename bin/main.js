@@ -65,16 +65,25 @@ const load_context = (argv) => {
   global.context = context;
 }
 
+const program_name = "zksql";
+
+const usage_description = "Usage";
+const positional_args_pattern = `<action>`;
 const optional_args_pattern = `--privateKey <privateKey> --verbosity <verbosity: 0, 1 (default), 2>`;
 
+
 const execute_action = "execute";
+const execute_description = "Execute a zkSQL query.";
+
 const result_action = "result";
+const result_description = "Retrieve result from a zkSQL query.";
+
 const help_message = `
-Usage: zksql <action> ${optional_args_pattern}
+${usage_description}: ${program_name} ${positional_args_pattern} ${optional_args_pattern}
 
 Available actions:
-- '${execute_action}': execute a zkSQL query.
-- '${result_action}': retrieve result from a zkSQL query.
+- '${execute_action}': ${execute_description}
+- '${result_action}': ${result_description}
 `;
 
 const default_entrypoint = (argv) => {
@@ -87,9 +96,9 @@ const default_entrypoint = (argv) => {
 const execute_arg_name = "query";
 const execute_cmd_pattern = `${execute_action} <${execute_arg_name}>`;
 const execute_help_message = `
-Execute a zkSQL query.
+${execute_description}
 
-Usage: zksql ${execute_cmd_pattern} ${optional_args_pattern}
+${usage_description}: ${program_name} ${execute_cmd_pattern} ${optional_args_pattern}
 `;
 
 const execute_entrypoint = async ({ argv }) => {
@@ -110,9 +119,9 @@ const execute_entrypoint = async ({ argv }) => {
 const result_arg_name = "requestId";
 const result_cmd_pattern = `${result_action} <${result_arg_name}>`;
 const result_help_message = `
-Retrieve result from a zkSQL query.
+${result_description}
 
-Usage: zksql ${result_cmd_pattern} ${optional_args_pattern}
+${usage_description}: ${program_name} ${result_cmd_pattern} ${optional_args_pattern}
 `;
 
 const result_entrypoint = async ({ argv }) => {

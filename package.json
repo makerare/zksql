@@ -12,8 +12,8 @@
     "main": "./bin/main.js"
   },
   "dependencies": {
-    "@aleohq/sdk": "^0.6.2",
-    "@aleohq/wasm": "^0.6.3",
+    "@aleohq/sdk": "^0.6.7",
+    "@aleohq/wasm": "^0.6.6",
     "bech32": "^2.0.0",
     "dotenv": "^16.3.1",
     "jsdoc": "^4.0.2",
