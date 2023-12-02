@@ -34,15 +34,33 @@ VALUES \
 "
 ```
 
+## Select request
+
+```bash
+node . execute "\
+SELECT column1 as col1 \
+FROM aleo103nyxgwktwavyv4l06mns6cqze3s9l6dwu7w8hvfkasrzrs4k5pscv370h.first_table
+"
+```
+
+## Table name format rules
+
+- 25 characters maximum
+- First character : lowercase letter
+- Other characters : lowercase letter | underscore | digit
+
 ## Implemented
 
 - CREATE TABLE
 - INSERT
+- JOIN
+- Single table WHERE
 
 ## Left to implement
 
-- SELECT
 - DELETE
 - JOIN
 - UPDATE
 - INSERT TABLE
+- Multiple table WHERE
+- JOIN
