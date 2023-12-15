@@ -1,0 +1,10 @@
+{
+    "program": "njfgxxgjiqiceeavgt3djc6rv.aleo",
+    "version": "0.0.0",
+    "description": "",
+    "development": {
+        "private_key": "APrivateKey1zkp4YSRzXyNPijXCXex2NTepdfmkC4uBPUUq8XHEyRoRfRZ",
+        "address": "aleo1gsxeqj7xr436yezm9hka3alfmu4rrsnl3pl3m8zfq9kr9gjta5xsqthg6z"
+    },
+    "license": "MIT"
+}
