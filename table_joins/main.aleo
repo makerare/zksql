@@ -1,5 +1,5 @@
 // Execting :
-// SELECT t2.col_2_1 as col1, t3.col_3_1 as col2, t2.col_3_2 as col3 as col1
+// SELECT t2.col_2_1 as col1, t3.col_3_1 as col2, t2.col_2_3 as col3
 // FROM aleo15epz3ejthprc70qyctnl5q4qtfjaparsfnwg7rm90v5gvtv2mvqq4n6kxj.table2 as t2
 // JOIN aleo12z0zjgct2xys56z5k83n442fjtcyrnfjhnkvaldhp8e0qafssc9smytex2.table3 as t3
 // ON t2.col_2_1 = t3.col_2_1
@@ -14,9 +14,18 @@ import table3.aleo;
 
 program njfgxxgjiqiceeavgt3djc6rv.aleo;
 
-struct EncryptedValue:
+
+struct Ciphertext:
+    nonce as group;
+    data as field;
+
+struct AddHomCiphertext:
     c as group;
     d as group;
+
+struct MulHomoCiphertext:
+    c as field;
+    d as field;
 
 struct Desc_njfgxxgjiqiceeavgt3djc6rv:
     col1 as field;
